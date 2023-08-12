@@ -8,4 +8,6 @@ urlpatterns = [
     path('application/', views.application, name="application"),
     path('track_application/', views.track_application, name="track_application"),
 
+    path('logout/', views.logout_view, name="logout"),
+
 ]

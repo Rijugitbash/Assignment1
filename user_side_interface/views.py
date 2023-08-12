@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, RegistrationForm, ApplicationForm
 from .models import Application
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
+import pytz
+from django.utils import timezone
+
+
+
 
 def home(request):
     login_form = LoginForm()
@@ -53,10 +59,13 @@ def application(request):
     if request.method == 'POST':
         form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-            choice = form.cleaned_data['select_field']
-            text_field = form.cleaned_data['text_field']
-            file_field = form.cleaned_data['file_field']
-            new_application = Application(user=request.user, choice=choice, text_field=text_field, file_field=file_field, status="Not Seen")
+            kolkata_timezone = pytz.timezone('Asia/Kolkata')
+            current_kolkata_time = timezone.now().astimezone(kolkata_timezone)
+            date_string = current_kolkata_time.strftime('%b. %d, %Y, %I:%M %p')
+            select_application_type = form.cleaned_data['select_application_type']
+            service_details = form.cleaned_data['service_details']
+            attach_file = form.cleaned_data['attach_file']
+            new_application = Application(user=request.user, select_application_type=select_application_type, service_details=service_details, attach_file=attach_file, status="Not Seen", submission_datetime=date_string)
             new_application.save()
             return redirect(track_application)
 
@@ -79,3 +88,8 @@ def track_application(request):
         "applications": applications
     }
     return render(request, 'track_application.html', context)
+    
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect(home)

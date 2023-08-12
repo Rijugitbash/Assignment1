@@ -10,12 +10,12 @@
                     <h3 class="card-title">Application Form</h3>
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.select_field.label_tag }}
-                        {{ form.select_field }}
-                        {{ form.text_field.label_tag }}
-                        {{ form.text_field }}
-                        {{ form.file_field.label_tag }}
-                        {{ form.file_field }}
+                        {{ form.select_application_type.label_tag }}
+                        {{ form.select_application_type }}
+                        {{ form.service_details.label_tag }}
+                        {{ form.service_details }}
+                        {{ form.attach_file.label_tag }}
+                        {{ form.attach_file }}
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
                 </div>

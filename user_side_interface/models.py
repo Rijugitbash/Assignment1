@@ -1,16 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    choice = models.CharField(max_length=50, choices=[
-        ('option1', 'Aplication 1'),
-        ('option2', 'Application 2'),
-        ('option3', 'Application 3'),
+    select_application_type = models.CharField(max_length=50, choices=[
+        ('application type 1', 'application type 1'),
+        ('application type 2', 'application type 2'),
+        ('application type 3', 'application type 3'),
     ])
-    text_field = models.CharField(max_length=200)
-    file_field = models.FileField(upload_to='application_files/')
-    submission_datetime = models.DateTimeField(auto_now_add=True)
+    service_details = models.CharField(max_length=200)
+    attach_file = models.FileField(upload_to='application_files/')
+    submission_datetime = models.CharField(max_length=100)
     status = models.CharField(max_length = 100)
 
     def __str__(self):

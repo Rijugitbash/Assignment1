@@ -4,28 +4,32 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Track Application</h2>
+    {% if applications|length == 0 %}
+    <div class="alert alert-success">
+        <strong>Sorry!</strong> No Application Is here
+      </div>
+    {% else %}
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Choice</th>
-                <th>Text Field</th>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Application Type</th>
+                <th>Details</th>
+                <th>Submition Date</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {% for application in applications %}
             <tr>
-                <td>{{ application.get_choice_display }}</td>
-                <td>{{ application.text_field }}</td>
-                <td>{{ application.submission_datetime|date:"M d, Y" }}</td>
-                <td>{{ application.submission_datetime|time:"H:i:s" }}</td>
-                <td>{{ application.status }}</td>
+                <td>{{ application.get_select_application_type_display }}</td>
+                <td>{{ application.service_details }}</td>
+                <td>{{ application.submission_datetime}}</td>
+                <td style="color:blue;">{{ application.status }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 </div>
 {% endblock %}
 
