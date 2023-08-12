@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Track Application</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Choice</th>
+                <th>Text Field</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.get_choice_display }}</td>
+                <td>{{ application.text_field }}</td>
+                <td>{{ application.submission_datetime|date:"M d, Y" }}</td>
+                <td>{{ application.submission_datetime|time:"H:i:s" }}</td>
+                <td>{{ application.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
